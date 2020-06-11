@@ -1,0 +1,58 @@
+How to properly change permalinks in wordpress 
+(without having to manually paste generated wordpress code to .htaccess file)
+
+
+Issues: 
+  a. Dropping index.php on website url.
+  b. Avoid manual copy-paste of generated wordpress code to .htaccess file.
+
+
+Environment: Using lampp in Ubuntu 16.04.
+
+
+Procedure/s:
+
+1. On your terminal, navigate to your project folder. 
+
+2. Enter as superuser.
+
+    sudo su
+
+
+3. Check if you have existing .htaccess file. If none, then create one.
+    
+    nano .htaccess
+
+
+4. Change .htaccess mode to 777 (writable).
+
+    sudo chmod 777 .htaccess
+
+
+5. On your Wordpress Admin panel, go to Settings->Permalinks.
+
+6. Under Common Settings select desired url structure (in this case, Post name) or go to Custom Structure and delete index.php.
+
+7. Save Changes.
+
+8. On your terminal, check updated* .htaccess file. 
+
+    nano .htaccess
+
+   *.htaccess file is now updated with proper code from wordpress similar to the following (as it differs depending on the selected url structure in step# 6):
+
+        # BEGIN WordPress
+        # The directives (lines) between `BEGIN WordPress` and `END WordPress` are
+        # dynamically generated, and should only be modified via WordPress filters.
+        # Any changes to the directives between these markers will be overwritten.
+        <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteBase /your-project/
+        RewriteRule ^index\.php$ - [L]
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /your-project/index.php [L]
+        </IfModule>
+
+        # END WordPress
+

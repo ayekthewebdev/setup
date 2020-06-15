@@ -56,3 +56,7 @@ Procedure/s:
 
         # END WordPress
 
+9. Don't forget to return .htaccess mode to its former permission (other than 777 (writable), e.g. 666 restriction).
+
+    sudo chmod 666 .htaccess
+

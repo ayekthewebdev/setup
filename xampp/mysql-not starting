@@ -1,0 +1,54 @@
+LAMPP MySQL is not starting in Port 3306
+
+
+Issues: 
+  a. Port 3306 is already in use.
+  b. You strictly want Port 3306 and does not like to change it to other ports (e.g. 3307 or 3308).
+
+Solution: Kill the application/process using port 3306.
+
+
+Environment: Using lampp in Ubuntu 16.04.
+
+
+Procedure/s
+
+  1. On terminal, check if port 3306 is indeed active/already in use.
+
+    sudo netstat -lpn |grep :3306
+
+
+  2. Press enter. You will get an output similar to this one:
+
+    tcp6       0      0 :::3306                 :::*                    LISTEN      12087/mysqld
+
+
+  3. Kill that existing process id 12087 (the process using port 3306) by executing the following command on the terminal:
+
+    sudo kill 12087  
+
+
+  4. Check if the process is successfully removed/killed by repeating procedure no. 1.
+  
+
+  5. If the process is successfully removed/killed, restart lampp on the terminal.
+
+    sudo /opt/lampp/lampp stop
+
+      Stopping XAMPP for Linux x.x.x-0...
+      XAMPP: Stopping Apache...ok.
+      XAMPP: Stopping MySQL...not running.
+      XAMPP: Stopping ProFTPD...ok.
+
+      then run
+
+    sudo /opt/lampp/lampp start
+
+      Starting XAMPP for Linux x.x.x-0...
+      XAMPP: Stopping Apache...ok.
+      XAMPP: Stopping MySQL...ok.
+      XAMPP: Stopping ProFTPD...ok.
+
+
+
+
